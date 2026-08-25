@@ -1,0 +1,454 @@
+/* GLOBAL RESET & TYPOGRAPHY */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background-color: #050505; /* Deep Apple Dark Mode */
+    color: #f5f5f7;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* HERO SECTION */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Revisi 2: Menyesuaikan skala video agar tidak terlalu ter-zoom */
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; 
+    z-index: 1;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.60 ); /* Sedikit lebih gelap agar logo glowing menonjol */
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-logo {
+    width: 230px; 
+    margin-bottom: 45px; /* Mendorong teks "OKA PRATAMA" jauh ke bawah */
+    filter: drop-shadow(0px 0px 18px rgba(212, 175, 55, 0.8));
+    transform: translateY(50px);
+}
+
+.hero-content h1 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: -20px; /* Angka minus untuk menarik profesi agar menempel ketat dengan nama */
+    color: #d4af37; 
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Revisi 1: Subtitle dengan jarak huruf (letter-spacing) lebar */
+.hero-content p {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.7rem, 1.8vw, 1.1rem);
+    font-weight: 500;
+    letter-spacing: 5px; /* Jarak antar huruf dilebarkan agar elegan */
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+/* TIMELINE & BENTO GRID */
+.timeline {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+.year-section {
+    margin-bottom: 80px;
+}
+.year-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    color: #e5e5ea;
+}
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+.dual-grid {
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+}
+.feature-box {
+    grid-column: 1 / -1; /* Spans full width */
+}
+
+/* BENTO BOX STYLING */
+.bento-box {
+    background: #151515;
+    border: 1px solid #2a2a2a;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+.bento-box:hover {
+    transform: translateY(-5px);
+    border-color: #555;
+}
+
+/* MEDIA CONTAINERS (VIDEO & PHOTOS) */
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+}
+.video-container video, .static-image, .thumbnail-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+.thumbnail-cover {
+    position: absolute;
+    z-index: 2;
+}
+
+/* PLAY/PAUSE INDICATOR */
+.play-indicator {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff;
+    z-index: 3;
+    pointer-events: none; /* Lets click pass through to JS */
+    transition: opacity 0.3s ease;
+}
+.video-container.playing .play-indicator {
+    opacity: 0;
+}
+.video-container.playing .thumbnail-cover {
+    opacity: 0; /* Hides Davis Thumbnail when playing */
+}
+
+/* VERTICAL VIDEO GRID (3 COLUMNS) */
+.vertical-video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px; /* Memberi rongga elegan di antara 3 video */
+    padding: 20px 20px 0 20px;
+    background: #000;
+}
+
+/* Mengubah paksa rasio menjadi Vertikal (9:16) */
+.vertical-container {
+    aspect-ratio: 9 / 16 !important;
+    border-radius: 12px; /* Sudut sedikit membulat seperti tampilan di HP */
+    background: #111;
+}
+
+/* Menyesuaikan ukuran font tombol play agar tidak kebesaran di kotak vertikal */
+.vertical-container .play-indicator {
+    font-size: 0.8rem;
+    padding: 8px 15px;
+}
+
+/* DUAL PHOTO GRID (1:1 RATIO) */
+.dual-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px; /* Rongga napas 15px sesuai instruksi Anda */
+    padding: 20px 20px 0 20px;
+    background: #000;
+}
+
+/* Memaksa foto menjadi persegi sempurna (1:1) dan sejajar di tengah */
+.square-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover; /* Mencegah foto gepeng, memotong bagian lebihnya secara rapi */
+    border-radius: 12px; /* Sudut melengkung elegan menyamakan video vertikal */
+}
+
+/* DUAL VIDEO GRID (BTS 2025) */
+.dual-video-grid {
+    display: grid;
+    /* Kita batasi lebarnya menjadi 33% (ukuran yang sama persis dengan jatah 3 video Awann sebelumnya) */
+    grid-template-columns: repeat(2, 33%); 
+    justify-content: center; /* Memaksa kedua video ditarik ke tengah secara simetris */
+    gap: 15px; 
+    padding: 20px 20px 0 20px;
+    background: #000;
+}
+
+/* CAROUSEL WRAPPER & INDIKATOR SWIPE */
+.carousel-box-wrapper {
+    position: relative;
+}
+
+.swipe-hint {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #d4af37;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    border-radius: 20px;
+    pointer-events: none;
+    z-index: 5;
+    backdrop-filter: blur(5px);
+}
+
+/* CAROUSEL KHUSUS RASIO 4:5 (FIT KE LAYAR) */
+.carousel-container.ratio-4-5 {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding: 20px 20px 0 20px;
+    background: #000;
+    scrollbar-width: none; /* Menyembunyikan scrollbar bawaan browser agar clean */
+}
+
+.carousel-container.ratio-4-5::-webkit-scrollbar {
+    display: none;
+}
+
+/* CAROUSEL KHUSUS RASIO 4:5 (FIT KE LAYAR & ANTI-POTONG) */
+.carousel-container.ratio-4-5 img {
+    height: clamp(320px, 45vh, 420px);
+    width: auto !important;
+    aspect-ratio: 4 / 5 !important;
+    flex: none; /* Kunci penangkal agar flexbox tidak memaksa foto menjadi persegi */
+    object-fit: cover;
+    border-radius: 12px;
+    margin-right: 15px; /* Jarak antar foto saat klien melakukan swipe */
+    scroll-snap-align: start;
+}
+
+/* CAROUSEL (2025 BTS) */
+.carousel-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+}
+.carousel-container::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+.carousel-container img {
+    flex: 0 0 85%;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    scroll-snap-align: center;
+    border-right: 2px solid #151515;
+}
+
+/* BOX INFO */
+.box-info {
+    padding: 24px;
+}
+.box-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+.box-info p {
+    font-size: 0.95rem;
+    color: #a1a1a6;
+}
+.yt-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #2997ff; /* Apple Blue */
+    text-decoration: none;
+    font-weight: 500;
+}
+.yt-link:hover { text-decoration: underline; }
+
+/* CREDIBILITY / LOGOS */
+.credibility {
+    text-align: center;
+    padding: 60px 20px;
+    background: #0a0a0a;
+}
+.credibility h2 {
+    font-size: 1.5rem;
+    color: #888;
+    margin-bottom: 30px;
+}
+.logo-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.logo-grid img {
+    height: 60px;
+    opacity: 0.6;
+    filter: grayscale(100%);
+    transition: 0.3s ease;
+}
+.logo-grid img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* FOOTER / SETUP & CTA */
+.footer-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    text-align: center;
+}
+.setup-box {
+    background: #111;
+    border: 1px solid #333;
+    padding: 40px;
+    border-radius: 24px;
+    margin-bottom: 40px;
+}
+.setup-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+.setup-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: #a1a1a6;
+}
+.setup-box strong {
+    color: #fff;
+}
+
+/* WHATSAPP BUTTON */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #000;
+    padding: 18px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+.cta-button:hover {
+    transform: scale(1.05);
+    background: #25D366; /* WhatsApp Green */
+    color: #fff;
+}
+
+/* COMMERCIAL GRID 3 KOLOM (2024) */
+.commercial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Memaksa 3 kolom dengan ukuran sama persis */
+    gap: 15px; /* Jarak elegan antar kotak */
+}
+
+/* DUAL LANDSCAPE GRID (FOTO KIRI & VIDEO KANAN) */
+.dual-landscape-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px; /* Rongga napas yang konsisten */
+    padding: 20px 20px 0 20px;
+    background: #000;
+}
+
+.media-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative; /* Penting agar tombol play tetap di tengah video */
+}
+
+/* Memaksa elemen di dalamnya tetap 16:9 dan fit proporsional */
+.aspect-16-9 {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block; 
+}
+
+/* FOUNDATION GRID (2020-2023) - KOMPOSISI 1:1, 16:9, 1:1 */
+.foundation-grid {
+    display: grid;
+    /* Trik presisi: 9fr 16fr 9fr memastikan tinggi ketiga foto sejajar sempurna */
+    grid-template-columns: 9fr 16fr 9fr; 
+    gap: 15px; /* Rongga napas yang selalu kita gunakan */
+    padding: 20px 20px 0 20px;
+    background: #000;
+}
+
+.foundation-grid .media-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden; /* Memastikan sudut melengkung tidak tertimpa foto */
+}
+
+/* Memaksa foto Kiri dan Kanan menjadi Persegi */
+.foundation-grid .ratio-1-1 {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Memaksa foto Tengah menjadi Lanskap */
+.foundation-grid .ratio-16-9 {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* REVISI FINAL: MEMANGKAS KEBOCORAN RUANG KOSONG DI BAWAH */
+
+/* 1. Memaksa section terakhir (The Foundation) agar tidak mendorong ke bawah terlalu jauh */
+.year-section:last-of-type {
+    margin-bottom: 40px !important; 
+    padding-bottom: 0 !important;
+}
+
+/* 2. Menarik kotak "My Editing Setup" ke atas 
+(Ini akan bekerja otomatis pada tag footer atau div setup Anda) */
+footer, .setup-box, .setup-container {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
